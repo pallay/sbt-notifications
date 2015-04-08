@@ -4,19 +4,19 @@ import org.scalatools.testing.{Event => TEvent, Logger => TLogger, Result => TRe
 import sbt._
 
 trait Notifier {
-  /** Sends the message to the growling system. */
+  /** Sends the message to the notifier system. */
   def notify(msg: NotifyResultFormat): Unit
 }
 
 object Notifier {
   def apply(): Notifier = {
 
+    // TODO - Fix !! blocking calls
     def isMacNotificationFriendly = try {
       Process("which terminal-notifier").!! matches ".*terminal-notifier\\s+"
     } catch {
       case e: Exception => false
     }
-
 
     def isLibNotifyBinFriendly = try {
       Process("which notify-send").!! matches ".*notify-send\\s+"
@@ -25,14 +25,15 @@ object Notifier {
     }
 
     def isGrowlNotifyFriendly = try {
-      (Process("where growlnotify").!!).replaceAll("[\n\r]", " ") matches ".*growlnotify.*"
+      Process("where growlnotify").!! replaceAll("[\n\r]", " ") matches ".*growlnotify.*"
     } catch {
       case e: Exception => false
     }
+
     def isMac = System.getProperty("os.name").toLowerCase.indexOf("mac") >= 0
 
     if(isMac && isMacNotificationFriendly) new NotificationCentreNotifier
-    else if (isMac) new MacNotifier
+    else if (isMac) new NullNotifier // TODO - new MacNotifier
     else if(isLibNotifyBinFriendly) new LibNotifyBinNotifier
     else if(isGrowlNotifyFriendly) new GrowlNotifier
     else new NullNotifier
@@ -45,23 +46,23 @@ final class NotificationCentreNotifier extends Notifier {
       "-appIcon", msg.imagePath.getOrElse(""),
       "-title", msg.title,
       "-message", msg.message,
-      "-activate", "com.apple.Terminal") // TODO some weirdos still use iTerm
+      "-activate", "com.apple.Terminal") // Terminal is always installed on a Mac
     val sender = Process("terminal-notifier" +: args)
-    sender.!
+    sender !
   }
   override def toString = "terminal-notifier"
 }
 
-
-final class MacNotifier extends Notifier {
-  override def notify(msg: NotifyResultFormat): Unit = {
-    val img = msg.imagePath.getOrElse("")
+// TODO - implement MacNotifier
+//final class MacNotifier extends Notifier {
+//  override def notify(msg: NotifyResultFormat): Unit = {
+//    val img = msg.imagePath.getOrElse("")
 //    val base = meow.Growl title(msg.title) identifier(msg.id.getOrElse(msg.title)) message(msg.message)
 //    val rich = if(img.isEmpty) base else base.image(img)
 //    (if(msg.sticky) rich.sticky() else rich).meow
-  }
-  override def toString = "mac-growl"
-}
+//  }
+//  override def toString = "mac-growl"
+//}
 
 final class NullNotifier extends Notifier {
   override def notify(msg: NotifyResultFormat): Unit = ()
@@ -81,7 +82,7 @@ final class LibNotifyBinNotifier extends Notifier {
       msg.title, msg.message
       )
     val sender = Process("notify-send" +: args)
-    sender.!
+    sender!
   }
   override def toString = "notify-send"
 }

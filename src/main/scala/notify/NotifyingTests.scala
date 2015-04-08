@@ -4,14 +4,15 @@ import sbt._
 import Keys._
 
 object NotifyingTests extends sbt.Plugin {
+
   import NotifyKeys._
 
   object NotifyKeys {
-    val images             = SettingKey[NotifyTestImages]("images", "Object defining paths of test images used for notification.")
+    val images             = SettingKey[NotifyDefaultImages]("images", "Object defining paths of test images used for notification.")
     val exceptionFormatter = SettingKey[(String, Throwable) => NotifyResultFormat]("exception-formatter", "Function used to format test exception.")
     val groupFormatter     = SettingKey[(GroupResult => NotifyResultFormat)]("group-formatter", "Function used to format a test group result.")
     val aggregateFormatter = SettingKey[(AggregateResult => NotifyResultFormat)]("aggregate-formatter", "Function used to format an aggregation of test results.")
-    val defaultImagePath   = SettingKey[File]("default-image-path", "Default path used to resolve growl test images.")
+    val defaultImagePath   = SettingKey[File]("default-image-path", "Default path used to resolve test images.")
     val notifier           = SettingKey[Notifier]("notifier", "Interface used to notify test results to users.")
   }
 
@@ -31,7 +32,7 @@ object NotifyingTests extends sbt.Plugin {
         val file = path / name
         if(file.exists) Some(file.getAbsolutePath) else None
       }
-      NotifyTestImages(setIfExists("pass.png"), setIfExists("fail.png"), setIfExists("error.png"))
+      NotifyDefaultImages(setIfExists("pass.png"), setIfExists("fail.png"), setIfExists("error.png"))
     },
     exceptionFormatter := { (name: String, t: Throwable) =>
       NotifyResultFormat(

@@ -1,4 +1,4 @@
-# Growling Tests
+# Sbt Notified Tests
 
 An [sbt](https://github.com/harrah/xsbt#readme) 0.13.* plugin that notifies test results to the operating system. Useful for red/green testing.
 
@@ -6,11 +6,7 @@ An [sbt](https://github.com/harrah/xsbt#readme) 0.13.* plugin that notifies test
 
 ### On Mac
 
-#### Option 1
 Use the default notification build into the Mac OS
-
-#### Option 2
-Install the [growl](http://growl.info/) extra [growlnotify](http://growl.info/extras.php#growlnotify) commandline client, make sure it's in your path and you have growl turned on.
 
 ### On Ubuntu
 

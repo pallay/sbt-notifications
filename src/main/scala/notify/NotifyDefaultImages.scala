@@ -5,22 +5,22 @@ package notify
  */
 import sbt._
 
-class NotifyTestImages(pass: Option[String], fail: Option[String], error: Option[String]) {
+class NotifyDefaultImages(pass: Option[String], fail: Option[String], error: Option[String]) {
 
-  import NotifyTestImages._
+  import NotifyDefaultImages._
 
   def passIcon  = Some(pass.getOrElse(defaultPass))
   def failIcon  = Some(fail.getOrElse(defaultFail))
   def errorIcon = Some(error.getOrElse(defaultError))
 
-  final def copy(pass: Option[String] = passIcon, fail: Option[String] = failIcon, error: Option[String] = errorIcon): NotifyTestImages = new NotifyTestImages(pass, fail, error)
+  final def copy(pass: Option[String] = passIcon, fail: Option[String] = failIcon, error: Option[String] = errorIcon): NotifyDefaultImages = new NotifyDefaultImages(pass, fail, error)
 
-  override def toString = s"NotifyTestImages("+passIcon+","+failIcon+","+errorIcon+")"
+  override def toString = s"NotifyDefaultImages("+passIcon+","+failIcon+","+errorIcon+")"
 }
 
-object NotifyTestImages {
+object NotifyDefaultImages {
 
-  def apply(pass: Option[String], fail: Option[String], error: Option[String]) = new NotifyTestImages(pass, fail, error)
+  def apply(pass: Option[String], fail: Option[String], error: Option[String]) = new NotifyDefaultImages(pass, fail, error)
 
   def iconPath(iconFileName: String): String = {
     val image = file(System.getProperty("user.home")) / ".sbt" / "sbt-notify" / "icons" / iconFileName

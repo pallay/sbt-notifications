@@ -6,7 +6,11 @@ An [sbt](https://github.com/harrah/xsbt#readme) 0.13.* plugin that notifies test
 
 ### On Mac
 
-Use the default notification build into the Mac OS
+Use the default notification build into the Mac OS.
+
+Pre-requisite is installing `https://github.com/alloy/terminal-notifier`
+
+    brew install terminal-notifier
 
 ### On Ubuntu
 
@@ -16,13 +20,13 @@ Install the `libnotify-bin` package.
 
 ### On Windows (7) / GIT bash
 
-Install the `growl for windows` package. This is availble from [growl for windows](http://www.growlforwindows.com/gfw/help/growlnotify.aspx). This must be on the windows path. Note that the usage of growlnotify has only been tested from cygwin (specifically GIT bash). The sbt growl plugin uses growlnotify.exe, not growlnotify.com.
+Install the `growl for windows` package. This is available from [growl for windows](http://www.growlforwindows.com/gfw/help/growlnotify.aspx). This must be on the windows path. Note that the usage of growlnotify has only been tested from cygwin (specifically GIT bash). The sbt growl plugin uses growlnotify.exe, not growlnotify.com.
 
 ### Project Configuration
 
 To install on a per-project basis, add the following to your plugin definition file
 
-    addSbtPlugin("com.raunu" % "sbt-growl-plugin" % "0.1.0")
+    addSbtPlugin("com.raunu" % "sbt-notify" % "0.1.0")
 
     resolvers += Classpaths.sbtPluginReleases
 
@@ -31,8 +35,7 @@ To install globally, create a `Build.scala` file under `~/.sbt/plugins/project` 
     import sbt._
     object PluginDef extends Build {
       override def projects = Seq(root)
-      lazy val root = Project("plugins", file(".")) dependsOn(growl)
-      lazy val growl = uri("git://github.com/pallay/sbt-notify.git")
+      lazy val notify = uri("git://github.com/pallay/sbt-notify.git")
     }
 
 Run your tests with the sbt `test` or `~test` task.

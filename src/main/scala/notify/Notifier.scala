@@ -43,12 +43,12 @@ object Notifier {
 final class NotificationCentreNotifier extends Notifier {
   override def notify(msg: NotifyResultFormat): Unit = {
     val args = Seq(
-      "-appIcon", msg.imagePath.getOrElse(""),
-      "-title", msg.title,
-      "-message", msg.message,
+      "-appIcon",  msg.imagePath.getOrElse(""),
+      "-title",    msg.title,
+      "-message",  msg.message,
       "-activate", "com.apple.Terminal") // Terminal is always installed on a Mac
     val sender = Process("terminal-notifier" +: args)
-    sender !
+    sender.!
   }
   override def toString = "terminal-notifier"
 }
@@ -82,7 +82,7 @@ final class LibNotifyBinNotifier extends Notifier {
       msg.title, msg.message
       )
     val sender = Process("notify-send" +: args)
-    sender!
+    sender.!
   }
   override def toString = "notify-send"
 }

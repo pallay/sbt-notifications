@@ -1,0 +1,4 @@
+> publishLocal
+$ exists target/sample.html
+$ exists target/subdirs/a/test.html
+$ exists target/subdirs/b/c/test.html

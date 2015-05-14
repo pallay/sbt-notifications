@@ -42,13 +42,13 @@ Run your tests with the sbt `test` or `~test` task.
 
 ## Configuring Icons
 
-By default the plugin looks for icons in `~/.sbt/sbt-notify/icons/`. Specifically, it looks for:
+By default the plugin looks for icons in `~/.sbt/plugins/sbt-notify/icons/`. Specifically, it looks for:
 
 * `pass.png` - used when tests pass
 * `fail.png` - used when tests fail
 * `error.png` - used for catastrophic failures
 
-If a notification icon is not found, the plugin extracts a default logo one and places it in `~/.sbt/sbt-notify/icons/`.
+If a notification icon is not found, the plugin extracts a default logo one and places it in `~/.sbt/plugins/sbt-notify/icons/`.
 
 The directory which is inspected for icons can be configured by adding this to your `build.sbt` file:
 

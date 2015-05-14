@@ -23,7 +23,7 @@ object NotifyDefaultImages {
   def apply(pass: Option[String], fail: Option[String], error: Option[String]) = new NotifyDefaultImages(pass, fail, error)
 
   def iconPath(iconFileName: String): String = {
-    val image = file(System.getProperty("user.home")) / ".sbt" / "sbt-notify" / "icons" / iconFileName
+    val image = file(System.getProperty("user.home")) / ".sbt" / "plugins" / "sbt-notify" / "icons" / iconFileName
     if(!image.exists) {
       IO.createDirectory(image.getParentFile)
       IO.transfer(getClass.getClassLoader.getResourceAsStream(iconFileName), image)

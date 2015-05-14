@@ -30,7 +30,7 @@ object Notifier {
       case e: Exception => false
     }
 
-    def isMac = System.getProperty("os.name").toLowerCase.indexOf("mac") >= 0
+    val isMac = System.getProperty("os.name").toLowerCase.indexOf("mac") >= 0
 
     if(isMac && isMacNotificationFriendly) new NotificationCentreNotifier
     else if (isMac) new NullNotifier // TODO - new MacNotifier
@@ -66,7 +66,7 @@ final class NotificationCentreNotifier extends Notifier {
 
 final class NullNotifier extends Notifier {
   override def notify(msg: NotifyResultFormat): Unit = ()
-  override def toString = "<no notifier system found on this system>"
+  override val toString = "<no notifier system found on this system>"
 }
 
 // Note: This class uses notify-send which requires libnotify-bin to be installed on Ubuntu.
@@ -80,11 +80,11 @@ final class LibNotifyBinNotifier extends Notifier {
       // icon - TODO - Ubuntu default icon.
       "-i", msg.imagePath.getOrElse(""),
       msg.title, msg.message
-      )
+    )
     val sender = Process("notify-send" +: args)
     sender.!
   }
-  override def toString = "notify-send"
+  override val toString = "notify-send"
 }
 
 // Note: This class uses growlnotify which may be installed on windows
@@ -95,9 +95,9 @@ final class GrowlNotifier extends Notifier  {
       "/silent:true",
       "/s:" + msg.sticky.toString,
       msg.title + " " + msg.message
-      )
+    )
     val sender = Process("growlnotify.exe" +: args)
     sender.!
   }
-  override def toString = "growlnotify"
+  override val toString = "growlnotify"
 }

@@ -88,7 +88,7 @@ object NotifyingTests extends sbt.Plugin {
             }
           )
     },
-    defaultImagePath := file(System.getProperty("user.home")) / ".sbt" / "sbt-notify" / "icons"
+    defaultImagePath := file(System.getProperty("user.home")) / ".sbt" / "plugins" / "sbt-notify" / "icons"
   )) ++ Seq(
     testListeners <+= notifyingTestListenerTask
   )

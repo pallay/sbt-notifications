@@ -1,4 +1,4 @@
-# Sbt Notified Tests
+# Sbt Notify Tests
 
 An [sbt](https://github.com/harrah/xsbt#readme) 0.13.* plugin that notifies test results to the operating system. Useful for red/green testing.
 

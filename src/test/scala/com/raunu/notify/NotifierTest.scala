@@ -1,6 +1,6 @@
 package scala.notify
 
-import notify.{NotificationCentreNotifier, NotifyResultFormat}
+import com.raunu.notify.{NotificationCentreNotifier, NotifyResultFormat}
 import org.scalatest._
 
 class NotifierTest extends FeatureSpec {

@@ -1,4 +1,4 @@
-package notify
+package com.raunu.notify
 
 import sbt.{SuiteResult, TestEvent, TestResult, TestsListener}
 

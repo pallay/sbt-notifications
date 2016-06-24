@@ -1,4 +1,4 @@
-package notify
+package com.raunu.notify
 
 import org.scalatools.testing.{Event => TEvent, Logger => TLogger, Result => TResult}
 import sbt._

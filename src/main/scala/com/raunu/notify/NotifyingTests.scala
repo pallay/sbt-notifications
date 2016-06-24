@@ -1,7 +1,8 @@
-package notify
+package com.raunu.notify
 
 import sbt._
 import Keys._
+import _root_.notify.NotifyDefaultImages
 
 object NotifyingTests extends sbt.Plugin {
 
